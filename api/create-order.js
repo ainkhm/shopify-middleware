@@ -4,19 +4,19 @@ require("dotenv").config();
 module.exports = async (req, res) => {
   const allowedOrigin = process.env.ALLOWED_ORIGIN;
 
-  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
   if (req.method === "OPTIONS") {
     return res.status(204).end();
   }
-  
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const payload = req.body;
+  const payload = JSON.stringify(req.body);
 
   const SHOPIFY_DOMAIN = process.env.SHOPIFY_DOMAIN;
   const SHOPIFY_API_KEY = process.env.SHOPIFY_API_KEY;
@@ -32,8 +32,8 @@ module.exports = async (req, res) => {
         },
       }
     );
-
-    if (response.data.order) {
+   
+    if (response) {
       return res.status(200).json(response.data.order);
     } else {
       return res.status(400).json({ message: "Failed to create order" });
