@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
   try {
     const response = await axios.post(
       `https://${SHOPIFY_DOMAIN}/admin/api/2024-10/orders.json`,
-      { order: payload },
+      payload,
       {
         headers: {
           "Content-Type": "application/json",
