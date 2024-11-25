@@ -2,6 +2,16 @@ const axios = require("axios");
 require("dotenv").config();
 
 module.exports = async (req, res) => {
+  // Добавляем CORS-заголовки
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Разрешить запросы с любых источников (для конкретного домена замените * на домен)
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Разрешённые методы
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Разрешённые заголовки
+
+  // Обработка preflight-запросов
+  if (req.method === "OPTIONS") {
+    return res.status(204).end(); // Завершаем preflight-запрос
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -32,7 +42,7 @@ module.exports = async (req, res) => {
       }
     }
 
-    return res.status(200).json(null); 
+    return res.status(200).json(null);
   } catch (error) {
     console.error("Error fetching customer:", error.message);
     return res.status(500).json({ error: "Internal server error" });
