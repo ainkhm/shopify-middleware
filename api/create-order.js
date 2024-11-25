@@ -2,7 +2,16 @@ const axios = require("axios");
 require("dotenv").config();
 
 module.exports = async (req, res) => {
+  const allowedOrigin = process.env.ALLOWED_ORIGIN;
 
+  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+  
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }

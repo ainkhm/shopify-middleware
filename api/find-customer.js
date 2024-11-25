@@ -2,14 +2,14 @@ const axios = require("axios");
 require("dotenv").config();
 
 module.exports = async (req, res) => {
-  // Добавляем CORS-заголовки
-  res.setHeader("Access-Control-Allow-Origin", "*"); // Разрешить запросы с любых источников (для конкретного домена замените * на домен)
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS"); // Разрешённые методы
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Разрешённые заголовки
+  const allowedOrigin = process.env.ALLOWED_ORIGIN;
 
-  // Обработка preflight-запросов
+  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
   if (req.method === "OPTIONS") {
-    return res.status(204).end(); // Завершаем preflight-запрос
+    return res.status(204).end();
   }
 
   if (req.method !== "POST") {
