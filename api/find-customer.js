@@ -2,7 +2,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 module.exports = async (req, res) => {
-  const ALLOWED_ORIGIN = process.env.SHOPIFY_DOMAIN;
+  const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
   const origin = req.headers.origin;
 
   if (origin !== ALLOWED_ORIGIN) {
