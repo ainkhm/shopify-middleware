@@ -7,6 +7,10 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  if (!req.body || !req.body.phone) {
+    return res.status(400).json({ error: "Bad Request: Missing 'phone' in request body" });
+  }
+
   const { phone } = req.body;
 
   const SHOPIFY_DOMAIN = process.env.SHOPIFY_DOMAIN;
