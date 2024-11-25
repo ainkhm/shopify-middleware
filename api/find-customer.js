@@ -1,4 +1,8 @@
-if (req.method !== "POST") {
+const axios = require("axios");
+require("dotenv").config();
+
+module.exports = async (req, res) => {
+  if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
@@ -28,8 +32,9 @@ if (req.method !== "POST") {
       }
     }
 
-    return res.status(200).json(null);
+    return res.status(200).json(null); 
   } catch (error) {
     console.error("Error fetching customer:", error.message);
     return res.status(500).json({ error: "Internal server error" });
   }
+};
