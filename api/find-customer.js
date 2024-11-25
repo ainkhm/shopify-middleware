@@ -2,20 +2,20 @@ const axios = require("axios");
 require("dotenv").config();
 
 module.exports = async (req, res) => {
-  const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
-  const origin = req.headers.origin;
+//   const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
+//   const origin = req.headers.origin;
 
-  if (origin !== ALLOWED_ORIGIN) {
-    return res.status(403).json({ error: "Forbidden: Origin not allowed" });
-  }
+//   if (origin !== ALLOWED_ORIGIN) {
+//     return res.status(403).json({ error: "Forbidden: Origin not allowed" });
+//   }
 
-  res.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   res.setHeader("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
+//   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") {
-    return res.status(204).end();
-  }
+//   if (req.method === "OPTIONS") {
+//     return res.status(204).end();
+//   }
 
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
