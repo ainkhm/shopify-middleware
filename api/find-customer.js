@@ -22,14 +22,21 @@ module.exports = async (req, res) => {
       }
     );
 
-    const customers = response.data.customers || [];
-    const customer = customers.find((c) => c.phone === phone);
+    const result = response.data;
 
-    if (customer) {
-      return res.status(200).json(customer);
-    } else {
-      return res.status(404).json({ message: "Customer not found" });
+    // Проверяем, есть ли клиенты
+    if (result.customers && result.customers.length > 0) {
+      // Ищем клиента по номеру телефона
+      const customer = result.customers.find((c) => c.phone === phone);
+
+      // Если клиент найден, возвращаем всю информацию о нем
+      if (customer) {
+        return res.status(200).json(customer);
+      }
     }
+
+    // Если клиента не найдено, возвращаем null
+    return res.status(200).json(null);
   } catch (error) {
     console.error("Error fetching customer:", error.message);
     return res.status(500).json({ error: "Internal server error" });
