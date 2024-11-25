@@ -1,14 +1,5 @@
-const axios = require("axios");
-require("dotenv").config(); 
-
-module.exports = async (req, res) => {
-    
-  if (req.method !== "GET") {
+if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
-  }
-
-  if (!req.body || !req.body.phone) {
-    return res.status(400).json({ error: "Bad Request: Missing 'phone' in request body" });
   }
 
   const { phone } = req.body;
@@ -42,4 +33,3 @@ module.exports = async (req, res) => {
     console.error("Error fetching customer:", error.message);
     return res.status(500).json({ error: "Internal server error" });
   }
-};
